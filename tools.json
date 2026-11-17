@@ -1,0 +1,51 @@
+[
+  {
+    "name": "ie_law_search",
+    "description": "Search Irish Acts of the Oireachtas by words in the title, e.g. \"data protection\" or \"companies\". Reads the Statute Book year by year, so it covers a range of years: by default the last 25 years; set from_year (as early as 1922) and to_year to widen or narrow, e.g. from_year 1988 to_year 1988 for the Data Protection Act 1988. Returns Act number, year, title and a link; matches are newest first. Acts only (not statutory instruments). Pair with ie_law_get for contents and section text.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Word(s) from the Act title, e.g. \"data protection\""
+        },
+        "from_year": {
+          "type": "number",
+          "description": "First year to search (default: 24 years before to_year; earliest 1922)"
+        },
+        "to_year": {
+          "type": "number",
+          "description": "Last year to search (default: the current year)"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "ie_law_get",
+    "description": "Fetch one Irish Act by year and number (e.g. year 2018, number 7 for the Data Protection Act 2018). Returns title, citation, long title, date, the list of sections and schedules, and whether a consolidated Revised Act exists and how current it is. Pass section (e.g. \"10\", \"10A\" or \"schedule 2\") for that provision's text. Text is as enacted by the Oireachtas; later amendments are not applied, so in_force is true only where a Revised Act exists (the Act is then in force at least in part) and otherwise unknown (null).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "number",
+          "description": "Year of the Act, e.g. 2018"
+        },
+        "number": {
+          "type": "number",
+          "description": "Act number in that year, e.g. 7"
+        },
+        "section": {
+          "type": "string",
+          "description": "Section number, e.g. \"10\" or \"10A\", or \"schedule 2\""
+        }
+      },
+      "required": [
+        "year",
+        "number"
+      ]
+    }
+  }
+]
